@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RyzenMC Voting</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to RyzenMC!</h1>
+        <p>Vote now and be a part of our growing Minecraft community!</p>
+        <button id="voteButton" class="pulse">Vote Now</button>
+    </div>
+
+    <!-- Vote Section (Initially hidden) -->
+    <div id="voteSection" class="vote-container">
+        <h1>Vote for RyzenMC</h1>
+        <p>Your feedback means a lot to us! Please rate us and leave a comment.</p>
+
+        <form id="voteForm">
+            <div class="input-group">
+                <label for="minecraftUsername">Your Minecraft Username:</label>
+                <input type="text" id="minecraftUsername" required placeholder="Enter your Minecraft username">
+            </div>
+            
+            <div class="input-group">
+                <label for="rating">Rate us (1 to 5 stars):</label>
+                <div class="stars">
+                    <input type="radio" id="star1" name="rating" value="1"><label for="star1">★</label>
+                    <input type="radio" id="star2" name="rating" value="2"><label for="star2">★</label>
+                    <input type="radio" id="star3" name="rating" value="3"><label for="star3">★</label>
+                    <input type="radio" id="star4" name="rating" value="4"><label for="star4">★</label>
+                    <input type="radio" id="star5" name="rating" value="5"><label for="star5">★</label>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="comment">Leave us a comment:</label>
+                <textarea id="comment" rows="4" placeholder="Your feedback..."></textarea>
+            </div>
+
+            <button type="submit">Submit Vote</button>
+        </form>
+    </div>
+
+    <script>
+        // When the Vote button is clicked, smoothly scroll to vote section and show it
+        document.getElementById('voteButton').addEventListener('click', function() {
+            // Scroll to the vote section
+            document.getElementById('voteSection').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Make sure the vote section is visible after the scroll
+            document.getElementById('voteSection').style.display = 'block';
+        });
+
+        // Handle form submission and send data to Discord webhook
+        document.getElementById('voteForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // Prevent the default form submission
+
+            const username = document.getElementById('minecraftUsername').value;
+            const rating = document.querySelector('input[name="rating"]:checked') ? document.querySelector('input[name="rating"]:checked').value : 'No rating';
+            const comment = document.getElementById('comment').value;
+
+            // Create the data object
+            const formData = {
+                username: username,
+                rating: rating,
+                comment: comment
+            };
+
+            // Send data to Discord webhook via POST request
+            fetch('https://discord.com/api/webhooks/1338507986045239370/Z_wE0d2JjdDeNRcfuyaQ4JWqaEHnjYcOCGB_TnKQE2-fRKMBoJ1ieZbFVgPHXiX1HBoq', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    content: `New Vote Submission:\nMinecraft Username: **${formData.username}**\nRating: **${formData.rating}**\nComment: **${formData.comment}**`
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert('Thank you for voting!');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Something went wrong. Please try again later.');
+            });
+        });
+    </script>
+</body>
+</html>
