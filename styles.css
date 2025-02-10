@@ -1,0 +1,143 @@
+/* General Body Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: linear-gradient(45deg, #00c6ff, #0072ff);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    flex-direction: column;
+    text-align: center;
+}
+
+.container {
+    text-align: center;
+    animation: fadeIn 1.5s ease-out;
+}
+
+h1 {
+    font-size: 4em;
+    margin-bottom: 20px;
+}
+
+p {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+}
+
+button {
+    background-color: #ff7c7c;
+    border: none;
+    padding: 20px 40px;
+    font-size: 2em;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    animation: pulse 1.5s infinite;
+}
+
+/* Pulse animation to attract attention */
+button.pulse {
+    animation: pulse 1.5s infinite;
+}
+
+button:hover {
+    background-color: #ff4c4c;
+    transform: scale(1.1);
+}
+
+/* Vote Section Styling */
+.vote-container {
+    margin-top: 50px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 40px;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 600px;
+    display: none; /* Initially hidden */
+    animation: bounceIn 1s ease-out;
+}
+
+h1 {
+    font-size: 2.5em;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1.1em;
+}
+
+button {
+    background-color: #ff7c7c;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.5em;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff4c4c;
+}
+
+.stars input {
+    display: none;
+}
+
+.stars label {
+    font-size: 2em;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.stars input:checked ~ label,
+.stars label:hover,
+.stars label:hover ~ label {
+    color: gold;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Animation for Vote Section */
+@keyframes bounceIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animation for Button Pulse */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
